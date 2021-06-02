@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<link rel="stylesheet" href="/static/css/index_css.css" type="text/css" />
+<body>
+<h1 style="opacity: 0;z-index: -2 ;display: none;"> {{ request.COOKIES.is_login }}</h1>
+
+    <div class="container">
+          <div class="hidden_menu menu">
+              <div class="menu_list">
+                  <li><a href="">学习进度</a></li>
+                    <li><a href="">学习计划</a></li>
+                    <li><a href="">学习资料</a></li>
+                    <li><a href="">我的收藏</a></li>
+                    <li><a href="/content/category/">MY LOGGING</a></li>
+                  <a href="/content/logOut/">登出</a>
+              </div>
+
+          </div>
+        <div class="head">
+            <div class="head-img">
+                <img src="/static/img/bg.jpg" alt="">
+            </div>
+
+        </div>
+        
+        <div class="panle">
+            
+            <li><a href="">学习进度</a></li>
+            <li><a href="">学习计划</a></li>
+            <li><a href="">学习资料</a></li>
+            <li><a href="">我的收藏</a></li>
+            <li><a href="/content/category/">MY LOGGING</a></li>
+        </div>
+        <div class="main-text">
+            <h2>Welcome My Blog</h2>
+            </div>
+            <a href="/login/"><button id="GoTo" type="button">SIGNUP</button></a>
+        </div>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        if ($.trim(String($("h1").text()))=="True") {
+            $("#GoTo").text("Go To!");
+            $("#GoTo").parent().attr("href", "/content/category/");
+        };
+    });
+    $(".head-img").hover(function () {
+        $(".hidden_menu").css("left","0px");
+    },function (){
+        $(".hidden_menu").hover(null,function (){
+        $(".hidden_menu").css("left","-310px");
+    });
+
+    });
+
+
+</script>
+</body>
+</html>

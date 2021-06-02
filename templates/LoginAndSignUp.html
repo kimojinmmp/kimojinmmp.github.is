@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/Login_css.css">
+</head>
+<body>
+
+<div class="container">
+    <img src="/static/img/bg.jpg" alt="">
+    <div class="panel">
+        <div class="content login">
+            <div class="swith"><span id="login" class="active" >Login in</span><span>/</span><span id="signup">Sign up</span></div>
+
+            <form action="/login/" method="post">
+                {% csrf_token %}
+
+                <div class="item" placeholder="用户名">{{ user_data.username }}</div>
+                <div class="item SignUp" placeholder="Email">{{ user_data.email }}</div>
+                <div class="item SignUp" placeholder="number">{{ user_data.number }}</div>
+                <div class="item"  placeholder="密码">{{ user_data.password }}</div>
+                <div class="item SignUp" placeholder="确认密码">{{ user_data.password1 }}</div>
+                <div class="alert-warn">{{ message }}</div>
+                <button type="submit">LOGIN</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('form .alert-warn').addClass('alert');
+    $(".SignUp input").removeAttr("required");
+    {#遍历判断初始input有效则lable上移#}
+    $('.item input').each(function (){
+            if($(this).val()==='')
+                $(this).parent().removeClass('focus');
+            else
+                $(this).parent().addClass('focus');
+})
+})
+    $('#login').click(function () {
+        $('.swith span').removeClass('active');
+        $(this).addClass('active');
+        $(this).parents('.content').removeClass('signup');
+        $(this).parents('.content').addClass('login');
+        $('form button').text('LOGIN');
+        $(".SignUp input").removeAttr("required");
+    })
+    $('#signup').click(function () {
+        $('.swith span').removeClass('active');
+        $(this).addClass('active');
+        $(this).parents('.content').removeClass('login');
+        $(this).parents('.content').addClass('signup');
+        $('form button').text('SIGNUP');
+        $(".SignUp input").attr('required' , 'ture');
+    })
+
+    $('.item input').on('focus', function () {
+        $(this).parent().addClass('focus');
+    })
+    $('.item input').on('blur', function () {
+        if ($(this).val() === '')
+            $(this).parent().removeClass('focus');
+    })
+</script>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #preview{
+            float: right;
+            width: 800px;
+            height: 1080px;
+            border: 1px solid black;
+        }
+        #text-input{
+            float: left;
+            width: 800px;
+            height: 1080px;
+        }
+        #submit{
+            position: absolute;
+            top: 80%;
+            left: 80%;
+            width: 100px;
+            height: 50px;
+
+        }
+        #up_load{
+            position: fixed;
+            left: 90%;
+            top:10px;
+            z-index: 9999;
+            width: 50px;
+            height: 20px;
+        }
+        #get_value1,#get_value2{
+            width: 60%;
+            height: 220px;
+            resize: none;
+        }
+        #get_value1{
+            display: none;
+        }
+    </style>
+  <body>
+    <link rel="stylesheet" href="/static/editor.md/css/editormd.css" />
+    <link rel="stylesheet" href="/static/css/homepage.css" type="text/css">
+    <button id="up_load">upload</button>
+    <div id="test-editor">
+    <textarea style="display:none;">{{ context.descMd }}</textarea>
+</div>
+    <div class="hidden">
+    <form action="/content/editor/?id={{ context.id }}" method="post">
+        {% csrf_token %}
+        <div class="sub_data" placeholder="Project Name:" ><input type="text" name="title" value="{{ context.title}}" required></div>
+        <div class="sub_data1" placeholder="Select:">
+            <select name="text_type" id="select">
+                <option value="{{ article_type}}">{{ article_type}}</option>
+                {% for cate in  text_types %}
+                    {% if cate != article_type %}
+                        <option value="{{ cate.category }}">{{ cate.category }}</option>
+                    {% endif %} 
+
+                {% endfor %}
+            </select>
+            </div>
+            <textarea  id="get_value1" name="descHtml"> </textarea>
+        <textarea  id="get_value2" name="descMd"> </textarea>
+        <button id="submit" type="submit">Confirm</button>
+    </form>
+
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="/static/editor.md/editormd.min.js"></script>
+<script type="text/javascript">
+    editor = editormd("test-editor", {
+    width  : "100%",            //宽度，不填为100%
+    height : "750px",           //高度，不填为100%
+    theme : "dark",
+    path   : "/static/editor.md/lib/",   //editor.md插件的lib目录地址
+    saveHTMLToTextarea : true, // 保存 HTML 到 Textarea
+    toolbarAutoFixed:true,      //工具栏自动固定定位的开启与禁用
+    });
+$(document).ready(function() {
+    // 判断输入框是否为空
+    $('.sub_data input').each(function (){
+            if($(this).val()==='')
+                $(this).parent().removeClass('focus');
+            else
+                $(this).parent().addClass('focus');
+})
+})
+    $("#up_load").click(function(){
+        $("#get_value1").val(editor.getHTML())
+        $("#get_value2").val(editor.getMarkdown())
+        $(".hidden").css("display","block")
+        $("body").css("background-color","rgba(0,0,0,0.3)")
+    })
+    $(".sub_data input").on('focus',function(){
+        $(this).parent().addClass('focus')
+    })
+    $(".sub_data input").on('blur',function(){
+        if($(this).val()==='')
+        $(this).parent().removeClass('focus')
+    })
+
+</script>
+  </body>
+</html>

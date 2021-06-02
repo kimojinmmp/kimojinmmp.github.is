@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>My Logging</title>
+    <link rel="stylesheet" href="/static/css/homepage.css" type="text/css">
+    <link rel="stylesheet" href="/static/alert/alert.css">
+    <link rel="stylesheet" href="/static/css/head_bar.css">
+    <script src="/static/alert/alert.js"></script>
+</head>
+<body>
+<div class="head_bar">
+
+</div>
+<div class="container">
+    <div class="panel">
+        {% for item in article_type %}
+            <div class="items">
+                <a href="/content/HomePage/?id={{ item.id }}">
+                    <span class="item">
+                        <span class="Title">
+                            {{ item.category }}
+                        </span>
+                    </span>
+            </a>
+            </div>
+        {% endfor %}
+
+        <div class="items"><button style="border: none;background: transparent;" class="add"></button></div>
+    </div>
+</div>
+<div class="alert">
+            <button id="close"></button>
+            <form action="/content/add_category/" method="post">
+                {% csrf_token %}
+                <div class="text_type" placeholder="添加分类">
+                    <input type="text" name="cate_name" >
+                </div>
+                <button type="submit" id="confirm_btn">添加</button>
+            </form>
+        </div>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+$(function() {
+    $(".add").click(function (){
+      $(".alert").css("display","block");
+      $(".alert").css("background","whitesmoke");
+  });
+    $("#close").click(function (){
+      $(".alert").hide();
+  });
+
+ });
+$("#close").hover(function (){
+     $(this).addClass("to_large")
+  });
+$("#close").hover(null,function (){
+     $(this).removeClass("to_large")
+  });
+ $('.text_type input').on('focus', function () {
+        $(this).parent().addClass('focus');
+    })
+$('.text_type input').on('blur', function () {
+    if ($(this).val() === '')
+        $(this).parent().removeClass('focus');
+    })
+
+</script>
+</body>
+</html>

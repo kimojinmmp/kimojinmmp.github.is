@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ context.title }}</title>
+</head>
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<link rel="stylesheet" href="/static/editor.md/css/editormd.min.css"/>
+<link rel="stylesheet" href="/static/editor.md/css/editormd.css"/>
+    <script src="/static/editor.md/editormd.min.js"></script>
+    <script src="/static/editor.md/lib/marked.min.js"></script>
+    <script src="/static/editor.md/lib/prettify.min.js"></script>
+
+    <script src="/static/editor.md/lib/raphael.min.js"></script>
+    <script src="/static/editor.md/lib/underscore.min.js"></script>
+    <script src="/static/editor.md/lib/sequence-diagram.min.js"></script>
+    <script src="/static/editor.md/lib/flowchart.min.js"></script>
+    <script src="/static/editor.md/lib/jquery.flowchart.min.js"></script>
+
+    <script src="/static/editor.md/editormd.js"></script>
+    <link rel="stylesheet" href="/static/alert/alert.css">
+    <script src="/static/alert/alert.js"></script>
+<body>
+
+<div>
+    <p>{{ context.date }}</p>
+    <button id="click">删除文章</button>
+    <div class="reBack"><a href="/content/HomePage/?id={{ context.select.id }}">返回</a></div>
+</div>
+{#填入文章和所属分类id#}
+<div class="reEditor"><a href="/content/editor/?id={{ context.id }}&article_type={{ context.select.id }}" type="button">重新编辑</a></div>
+<div id="test-editormd" style="width: 60%; margin: auto;" >
+	<textarea style="display: none" name="test-editormd-markdown-doc">{{ context.descMd }}</textarea>
+</div>
+{#弹窗页面 TODO#}
+<div class="alert">
+    <button id="close"></button>
+    <form action="/content/delText/?id={{context.id}}" method="post">
+        {% csrf_token %}
+        <span id="warn"><lable>确认删除</lable></span>
+        <button type="submit" id="confirm_btn">确认</button>
+    </form>
+</div>
+</body>
+
+<script src="/static/editor.md/editormd.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        testEditor = editormd.markdownToHTML("test-editormd", {
+            htmlDecode :"style, script, iframe",
+            emoji           : true,
+            taskList        : true,
+            tex             : true,  // 默认不解析
+            flowChart       : true,  // 默认不解析
+            sequenceDiagram : true,  // 默认不解析
+        });
+
+    })
+    $("#delText").click(function (){
+        alert("确认删除")
+    })
+
+</script>
+</html>
