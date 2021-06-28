@@ -8,10 +8,21 @@
     <title>Document</title>
     <link rel="stylesheet" href="/static/css/Login_css.css">
 </head>
+<style>
+    .ss{
+        margin-left: 20px;
+        position: relative;
+    }
+    .ss::after{
+        content: attr(placeholder);
+        width: 50px;
+        position: absolute;
+        left: 15px;
+    }
+</style>
 <body>
-
 <div class="container">
-    <img src="/static/img/bg.jpg" alt="">
+    <img src="/static/data/upload/img/bg.jpg" alt="">
     <div class="panel">
         <div class="content login">
             <div class="swith"><span id="login" class="active" >Login in</span><span>/</span><span id="signup">Sign up</span></div>
@@ -25,6 +36,15 @@
                 <div class="item"  placeholder="密码">{{ user_data.password }}</div>
                 <div class="item SignUp" placeholder="确认密码">{{ user_data.password1 }}</div>
                 <div class="alert-warn">{{ message }}</div>
+                <label class="item SignUp">性别：</label><br>
+                <input type="radio" name="sex" value="male" placeholder="male" class="item SignUp ss "/><br>
+                <input type="radio" name="sex" value="female" placeholder="female" class="item SignUp ss"/><br>
+                <label class="item SignUp">爱好：</label><br>
+                <input type="radio" name="hobby" value="香蕉" placeholder="香蕉" class="item SignUp ss"/><br>
+                <input type="radio" name="hobby" value="苹果" placeholder="苹果" class="item SignUp ss"/><br>
+                <input type="radio" name="hobby" value="葡萄" placeholder="葡萄" class="item SignUp ss"/><br>
+                <label class="item SignUp">简介：</label><br>
+                <textarea name="desc" class="item SignUp"></textarea>
                 <button type="submit">LOGIN</button>
             </form>
         </div>

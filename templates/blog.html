@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>yzb的小站</title>
+</head>
+<link rel="stylesheet" href="/static/css/blog.css">
+<link rel="stylesheet" href="/static/css/head_bar.css">
+    <link rel="stylesheet" href="/static/css/editor-btn.css">
+<body>
+<a href="/content/editor/?article_type={{ article_type.id }}"><div class="editor"><img src="/static/data/upload/img/editor.png/" width="40px" height="40px" style="display: block"></div></a>
+<div class="head_bar">
+    <div class="head-h">
+            <div class="head-img-h"></div>
+            <div class="panel-h">
+                <li><a href="">学习进度</a></li>
+                <li><a href="">学习计划</a></li>
+                <li><a href="">学习资料</a></li>
+                <li><a href="">我的收藏</a></li>
+                <li><a href="/content/category/">MY LOGGING</a></li>
+            </div>
+    </div>
+</div>
+<div class="container">
+    <div class="main-container">
+        <div class="items-left">
+            <div class="Carousel">
+                <div class="big-img"></div>
+                <div class="small-img">
+                    <div class="img img1"></div>
+                    <div class="img img2"></div>
+                    <div class="img img3"></div>
+                    <div class="img img4"></div>
+                </div>
+            </div>
+            {% for item in items %}
+            <div class="item">
+                <a href="/content/detail/?id={{ item.id }}">
+                <div class="head-ss">
+                    <img src="/static/data/upload/img/bg.jpg" alt="">
+                </div>
+                <div class="content-in">
+                    <span class="content-tit">{{ item.title }}</span>
+                </div>
+                </a>
+                <div class="footer">
+                        <div class="target" id="{{ item.select.category }}"></div>
+                        <div class="data"></div>
+                        <div class="appreciate"></div>
+                        <div class="collection"></div>
+                        <div class="forward"></div>
+                        <div class="view"></div>
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+            </div>
+        </div>
+        <div class="items-right">
+            <div class="head-contain">
+                <div class="user-data">
+                <div class="head-img" style="background-image: url('/static/data/upload/img/GitHub.png');background-size: contain"></div>
+                <div class="user-name">username</div>
+                </div>
+            </div>
+            <div class="recommend">
+                <p>推荐以下博客：</p>
+                <div class="content-a">
+                    <ul>
+                        <a href="#">推荐以下博客</a><br>
+                        <a href="#">springframework.b</a><br>
+                        <a href="#">推荐以下博客</a><br>
+                        <a href="#">推荐以下博客</a><br>
+                        <a href="#">推荐以下博客</a>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="link-me">
+                <div id="QQ"></div>
+                <div id="WeChat"></div>
+                <div id="GitHub"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="QR-code"></div>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script src="/static/js/bolg-Carousel.js"></script>
+<script>
+
+
+</script>
+</body>
+</html>

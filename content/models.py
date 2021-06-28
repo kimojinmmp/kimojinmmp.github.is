@@ -5,6 +5,7 @@ from django.db import models
 class categorys(models.Model):
     category=models.CharField(max_length=20)
     user_name = models.ForeignKey('user.User', on_delete=models.CASCADE)
+    cate_img=models.ImageField('照片', upload_to ='upload/img', blank = True, null = True,default="upload/img/others.png")
     class META:
         db_table = 'category'
         verbose_name = '文章分类'

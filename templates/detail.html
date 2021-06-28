@@ -7,6 +7,7 @@
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <link rel="stylesheet" href="/static/editor.md/css/editormd.min.css"/>
 <link rel="stylesheet" href="/static/editor.md/css/editormd.css"/>
+<link rel="stylesheet" href="/static/css/head_bar.css">
     <script src="/static/editor.md/editormd.min.js"></script>
     <script src="/static/editor.md/lib/marked.min.js"></script>
     <script src="/static/editor.md/lib/prettify.min.js"></script>
@@ -21,7 +22,18 @@
     <link rel="stylesheet" href="/static/alert/alert.css">
     <script src="/static/alert/alert.js"></script>
 <body>
-
+<div class="head_bar">
+    <div class="head-h">
+            <div class="head-img-h"></div>
+            <div class="panel-h">
+                <li><a href="">学习进度</a></li>
+                <li><a href="">学习计划</a></li>
+                <li><a href="">学习资料</a></li>
+                <li><a href="">我的收藏</a></li>
+                <li><a href="/content/category/">MY LOGGING</a></li>
+            </div>
+    </div>
+</div>
 <div>
     <p>{{ context.date }}</p>
     <button id="click">删除文章</button>

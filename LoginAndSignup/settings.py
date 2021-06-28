@@ -127,3 +127,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
+# 图片储存根路径
+MEDIA_URL = '/static/data/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'static/data')

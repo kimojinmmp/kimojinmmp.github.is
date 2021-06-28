@@ -1,5 +1,6 @@
 import json
 
+from django.forms import modelform_factory
 from django.shortcuts import render, redirect
 
 
@@ -21,7 +22,7 @@ def HomePage(request):
     article_type = request.GET.get('id',1)
     article_type=categorys.objects.get(id=article_type)
     items=article_type.content_set.all()
-    return render(request,'HomePage.html',locals())
+    return render(request,'blog.html',locals())
 
 
 def loginOut(request):
@@ -114,7 +115,6 @@ def delText(request):
 
 
 def category(request):
-    print(request.COOKIES.get("user_name"))
     if request.COOKIES.get("user_name") is None:
         return redirect("/login/")
     # if request=="POST":
@@ -122,6 +122,8 @@ def category(request):
     user_name=request.COOKIES.get("user_name",'')
     #获取数据库中该用户的对象
     user=User.objects.get(name=user_name)
+    fileForm = modelform_factory(categorys, fields=['category', 'cate_img'])
+    form = fileForm(request.POST, request.FILES)
     article_type = user.categorys_set.all()
     return render(request,'Category.html',locals())
 
@@ -131,12 +133,19 @@ def add_category(request):
     user_name = request.COOKIES.get("user_name", '')
     # 获取数据库中该用户的对象
     user = User.objects.get(name=user_name)
+    fileForm = modelform_factory(categorys, fields=['category', 'cate_img'])
     if request.method=="POST":
-        cate_name=request.POST.get('cate_name','')
-        items = categorys()
-        items.category=cate_name
-        items.user_name=user
-        items.save()
+        form = fileForm(request.POST, request.FILES)
+        if form.is_valid():
+            category = form.cleaned_data['category']
+            cate_img = form.cleaned_data['cate_img']
+            # 写入数据库
+            category1= categorys()
+            category1.category = category
+            category1.cate_img = cate_img
+            category1.user_name=User.objects.get(name=user_name)
+            category1.save()
+
         return redirect("/content/category/")
     return render(request,"404.html",locals())
 

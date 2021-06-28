@@ -6,21 +6,34 @@
     <link rel="stylesheet" href="/static/css/homepage.css" type="text/css">
     <link rel="stylesheet" href="/static/alert/alert.css">
     <link rel="stylesheet" href="/static/css/head_bar.css">
-    <script src="/static/alert/alert.js"></script>
 </head>
+<style>
+</style>
 <body>
-<div class="head_bar">
 
+<div class="head_bar">
+    <div class="head-h">
+            <div class="head-img-h"></div>
+            <div class="panel-h">
+                <li><a href="">学习进度</a></li>
+                <li><a href="">学习计划</a></li>
+                <li><a href="">学习资料</a></li>
+                <li><a href="">我的收藏</a></li>
+                <li><a href="/content/category/">MY LOGGING</a></li>
+            </div>
+    </div>
 </div>
 <div class="container">
     <div class="panel">
         {% for item in article_type %}
             <div class="items">
                 <a href="/content/HomePage/?id={{ item.id }}">
-                    <span class="item">
-                        <span class="Title">
-                            {{ item.category }}
+                    <span class="item" >
+                        <span class="ico_tit">
+                            <div class="cate_ico" style="background-image: url('/static/data/{{ item.cate_img }}');background-size: contain;background-repeat: no-repeat"></div>
+                            <span>{{ item.category }}</span>
                         </span>
+
                     </span>
             </a>
             </div>
@@ -31,10 +44,13 @@
 </div>
 <div class="alert">
             <button id="close"></button>
-            <form action="/content/add_category/" method="post">
+            <form action="/content/add_category/" method="post"  enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="text_type" placeholder="添加分类">
-                    <input type="text" name="cate_name" >
+                    {{ form.category }}
+                </div>
+                <div class="text_type" id="sub_file" placeholder="分类图片">
+                    {{ form.cate_img }}
                 </div>
                 <button type="submit" id="confirm_btn">添加</button>
             </form>
@@ -45,8 +61,7 @@
 
 $(function() {
     $(".add").click(function (){
-      $(".alert").css("display","block");
-      $(".alert").css("background","whitesmoke");
+       $(".alert").show();
   });
     $("#close").click(function (){
       $(".alert").hide();
